@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import data from './data';
 
@@ -19,10 +19,23 @@ function App() {
 		setCart([...cart, item])
 	};
 
+	const removeItem = id => {
+		setCart(cart.filter(it => {
+			// console.log(it.id)
+			// console.log(id)
+			return id !== it.id 
+		}))
+	}
+
+	useEffect(() => {
+		console.log(cart)
+		console.log(cart.length)
+	}, [cart])
+
 	return (
 		<div className="App">
 			<ProductContext.Provider value={{products, addItem}}>
-				<CartContext.Provider value={cart}>
+				<CartContext.Provider value={{cart, removeItem}}>
 					<Navigation/>
 
 					{/* Routes */}
